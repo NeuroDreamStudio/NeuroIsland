@@ -31,13 +31,13 @@ const HomePage: React.FC = () => {
               <motion.div
                 className="flex flex-col justify-center ml-[3%]"
                 style={{ marginTop: '-20%' }}
-                initial={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 1, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
               >
                 <motion.h2 
                   className="text-[76px] md:text-[100px] lg:text-[134px] font-black mb-6 leading-tight mt-[30%]"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 1, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.1 }}
                 >
@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
 
                 <motion.p 
                   className="text-lg md:text-xl text-cyan-100 mb-8 max-w-md font-light leading-relaxed"
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
                 >
@@ -68,7 +68,7 @@ const HomePage: React.FC = () => {
                 {/* Call-to-action or decorative element */}
                 <motion.div
                   className="flex items-center space-x-3 text-emerald-300"
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >

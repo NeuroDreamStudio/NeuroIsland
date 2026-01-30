@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* HSL Color System - Modern Design */
+  --primary: 10 84% 55%;        /* Orange/Warm */
+  --primary-light: 10 100% 70%;
+  --primary-dark: 10 70% 40%;
+  
+  --secondary: 220 70% 50%;     /* Blue/Cool */
+  --secondary-light: 220 100% 65%;
+  --secondary-dark: 220 60% 35%;
+  
+  --accent: 160 100% 50%;       /* Cyan/Neon */
+  --accent-light: 160 100% 65%;
+  --accent-dark: 160 100% 35%;
+  
+  --destructive: 0 100% 50%;    /* Red/Error */
+  --destructive-light: 0 100% 65%;
+  --destructive-dark: 0 100% 35%;
+  
+  /* Neutral/Grayscale */
+  --neutral-50: 0 0% 98%;
+  --neutral-100: 0 0% 96%;
+  --neutral-200: 0 0% 90%;
+  --neutral-300: 0 0% 80%;
+  --neutral-400: 0 0% 60%;
+  --neutral-500: 0 0% 45%;
+  --neutral-600: 0 0% 32%;
+  --neutral-700: 0 0% 20%;
+  --neutral-800: 0 0% 12%;
+  --neutral-900: 0 0% 5%;
+  
+  /* Semantic Colors */
+  --success: 120 100% 50%;
+  --warning: 40 100% 50%;
+  --info: 220 100% 50%;
+  
+  /* Elevation & Spacing */
+  --elevation-1: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --elevation-2: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --elevation-3: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -27,8 +27,8 @@ const Footer: React.FC = () => {
               <ul className="space-y-3 text-center w-full list-none">
                 {[
                   { name: 'Home', href: '/' },
-                  { name: 'NFT Gallery', href: '/nft' },
-                  { name: 'Games', href: '/neuro-trivia' },
+                  { name: 'NFT Hub', href: '/nft-island' },
+                  { name: 'Neuro Trivia', href: '/neuro-trivia' },
                   { name: 'Rewards', href: '/rewards' }
                 ].map((link) => (
                   <li key={link.name}>
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/30 pt-8">
+        <div className="border-t border-white/30 mt-12 pt-12">
           <div className="flex flex-col md:flex-row justify-center items-center text-center gap-6">
             <p className="text-white/80 text-sm">
               © 2026 NeuroIsland. All rights reserved.

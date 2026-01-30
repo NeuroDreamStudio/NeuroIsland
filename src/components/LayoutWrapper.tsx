@@ -25,8 +25,8 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
             <Link href="/trivia" className="text-gray-300 hover:text-emerald-400 transition">
               Trivia
             </Link>
-            <Link href="/nft" className="text-gray-300 hover:text-emerald-400 transition">
-              NFT Gallery
+            <Link href="/nft-island" className="text-gray-300 hover:text-emerald-400 transition">
+              NFT Hub
             </Link>
             <Link href="/admin/login" className="text-gray-300 hover:text-emerald-400 transition">
               Admin
@@ -74,7 +74,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
                 <div className="flex flex-col items-center">
                   <h4 className="text-lg font-bold mb-5 text-cyan-400 uppercase tracking-wider">Product</h4>
                   <ul className="space-y-3 text-center w-full list-none">
-                    {['Trivia', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
+                    {['Trivia', 'NFT Hub', 'Neuro Trivia', 'Rewards'].map((link) => (
                       <li key={link}>
                         <a href="#" className="text-white visited:text-white hover:text-yellow-400 transition duration-200 font-medium">
                           {link}
@@ -115,7 +115,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-white/30 pt-8">
+            <div className="border-t border-white/30 mt-12 pt-12">
               <div className="flex flex-col md:flex-row justify-center items-center text-center gap-6">
                 <p className="text-white/80 text-sm">
                   © 2026 NeuroIsland. All rights reserved.
