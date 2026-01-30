@@ -265,11 +265,11 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-3 gap-16 mb-12">
           {/* Navigation */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-start">
             <h4 className="text-lg font-bold mb-5 text-cyan-400 uppercase tracking-wider">Navigation</h4>
-            <ul className="space-y-2 text-center">
+            <ul className="space-y-3 text-left w-full">
               {['Home', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
                 <li key={link}>
                   <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
@@ -281,9 +281,9 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Community */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-start">
             <h4 className="text-lg font-bold mb-5 text-emerald-400 uppercase tracking-wider">Community</h4>
-            <ul className="space-y-2 text-center">
+            <ul className="space-y-3 text-left w-full">
               {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
                 <li key={link}>
                   <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
@@ -295,9 +295,9 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Legal */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-start">
             <h4 className="text-lg font-bold mb-5 text-teal-400 uppercase tracking-wider">Legal</h4>
-            <ul className="space-y-2 text-center">
+            <ul className="space-y-3 text-left w-full">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
                 <li key={link}>
                   <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
