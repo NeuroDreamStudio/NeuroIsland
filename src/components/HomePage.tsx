@@ -245,7 +245,7 @@ export const HomePage: React.FC = () => {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative mt-20 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 border-t-4 border-cyan-500/50">
+    <footer className="relative mt-20 bg-black border-t-4 border-cyan-500">
       <div className="max-w-7xl mx-auto px-4 py-16">
         {/* Header Section */}
         <div className="text-center mb-12">
@@ -255,7 +255,7 @@ const Footer: React.FC = () => {
               NeuroIsland
             </span>
           </h3>
-          <p className="text-cyan-200/80 text-lg max-w-2xl mx-auto">
+          <p className="text-cyan-200 text-lg max-w-2xl mx-auto">
             Your tropical paradise for gaming, NFTs, and Web3 adventures
           </p>
         </div>
@@ -264,11 +264,11 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Navigation */}
           <div className="flex flex-col items-center">
-            <h4 className="text-lg font-bold mb-5 text-cyan-300 uppercase tracking-wider">Navigation</h4>
+            <h4 className="text-lg font-bold mb-5 text-cyan-400 uppercase tracking-wider">Navigation</h4>
             <ul className="space-y-2 text-center">
               {['Home', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-cyan-200/80 hover:text-yellow-400 transition duration-200 font-medium">
+                  <a href="#" className="text-white hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -278,11 +278,11 @@ const Footer: React.FC = () => {
 
           {/* Community */}
           <div className="flex flex-col items-center">
-            <h4 className="text-lg font-bold mb-5 text-emerald-300 uppercase tracking-wider">Community</h4>
+            <h4 className="text-lg font-bold mb-5 text-emerald-400 uppercase tracking-wider">Community</h4>
             <ul className="space-y-2 text-center">
               {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-cyan-200/80 hover:text-yellow-400 transition duration-200 font-medium">
+                  <a href="#" className="text-white hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -292,11 +292,11 @@ const Footer: React.FC = () => {
 
           {/* Legal */}
           <div className="flex flex-col items-center">
-            <h4 className="text-lg font-bold mb-5 text-teal-300 uppercase tracking-wider">Legal</h4>
+            <h4 className="text-lg font-bold mb-5 text-teal-400 uppercase tracking-wider">Legal</h4>
             <ul className="space-y-2 text-center">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-cyan-200/80 hover:text-yellow-400 transition duration-200 font-medium">
+                  <a href="#" className="text-white hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -306,9 +306,9 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-cyan-500/30 pt-8">
+        <div className="border-t border-cyan-500/50 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
-            <p className="text-cyan-200/60 text-sm">
+            <p className="text-gray-400 text-sm">
               © 2026 NeuroIsland. All rights reserved. 🚀
             </p>
             <div className="flex flex-col md:flex-row gap-6 md:gap-8">
