@@ -27,7 +27,7 @@ export const HomePage: React.FC = () => {
       label: '🎁 Rewards Hub',
       description: 'Claim daily rewards & bonuses',
       color: 'from-yellow-400 via-orange-500 to-red-600',
-      href: '#rewards',
+      href: '/rewards',
       icon: '⭐',
     },
     {
