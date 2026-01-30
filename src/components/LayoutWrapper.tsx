@@ -73,7 +73,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
                 {/* Product */}
                 <div className="flex flex-col items-center">
                   <h4 className="text-lg font-bold mb-5 text-cyan-400 uppercase tracking-wider">Product</h4>
-                  <ul className="space-y-3 text-center w-full">
+                  <ul className="space-y-3 text-center w-full list-none">
                     {['Trivia', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
                       <li key={link}>
                         <a href="#" className="text-white visited:text-white hover:text-yellow-400 transition duration-200 font-medium">
@@ -87,7 +87,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
                 {/* Community */}
                 <div className="flex flex-col items-center">
                   <h4 className="text-lg font-bold mb-5 text-emerald-400 uppercase tracking-wider">Community</h4>
-                  <ul className="space-y-3 text-center w-full">
+                  <ul className="space-y-3 text-center w-full list-none">
                     {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
                       <li key={link}>
                         <a href="#" className="text-white visited:text-white hover:text-yellow-400 transition duration-200 font-medium">
@@ -101,7 +101,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
                 {/* Legal */}
                 <div className="flex flex-col items-center">
                   <h4 className="text-lg font-bold mb-5 text-teal-400 uppercase tracking-wider">Legal</h4>
-                  <ul className="space-y-3 text-center w-full">
+                  <ul className="space-y-3 text-center w-full list-none">
                     {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
                       <li key={link}>
                         <a href="#" className="text-white visited:text-white hover:text-yellow-400 transition duration-200 font-medium">
@@ -118,7 +118,7 @@ const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children, showFooter = tr
             <div className="border-t border-white/30 pt-8">
               <div className="flex flex-col md:flex-row justify-center items-center text-center gap-6">
                 <p className="text-white/80 text-sm">
-                  © 2026 NeuroIsland. All rights reserved. 🚀
+                  © 2026 NeuroIsland. All rights reserved.
                 </p>
               </div>
             </div>

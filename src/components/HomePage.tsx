@@ -30,6 +30,7 @@ const HomePage: React.FC = () => {
               {/* LEFT SIDE - Title and Subtitle */}
               <motion.div
                 className="flex flex-col justify-center ml-[3%]"
+                style={{ marginTop: '-20%' }}
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
@@ -167,10 +168,10 @@ const HomePage: React.FC = () => {
         <div className="w-full min-h-screen"></div>
 
         {/* Footer */}
+        <div style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+          <Footer />
+        </div>
       </div>
-
-      {/* FOOTER SECTION - Completely separate */}
-      <Footer />
     </>
   );
 };

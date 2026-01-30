@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Footer from '../components/Footer';
 
 const RewardsPage: React.FC = () => {
   const [selectedReward, setSelectedReward] = useState<string | null>(null);
@@ -243,49 +244,9 @@ const RewardsPage: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="relative py-20 px-4 border-t border-cyan-500/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h3 className="text-3xl font-bold mb-6 text-cyan-300">
-            Ready to Earn Rewards?
-          </h3>
-          <p className="text-lg text-cyan-100 mb-8">
-            Start playing games, complete challenges, and climb the reward tiers!
-          </p>
-          <motion.div
-            className="flex gap-4 justify-center flex-wrap"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Link href="/neuro-trivia">
-              <button className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-full hover:scale-105 transition transform">
-                Play Trivia →
-              </button>
-            </Link>
-            <Link href="/nft-island">
-              <button className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold rounded-full hover:scale-105 transition transform">
-                View NFTs →
-              </button>
-            </Link>
-            <Link href="/">
-              <button className="px-8 py-3 border-2 border-cyan-400 text-cyan-300 font-bold rounded-full hover:bg-cyan-400/10 transition">
-                Back Home
-              </button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative border-t border-cyan-400/20 backdrop-blur-sm bg-gradient-to-b from-blue-900/50 to-teal-900/50 mt-20">
-        <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-          <p className="text-cyan-200/60 text-sm">
-            © 2026 NeuroIsland Rewards System. Keep earning! 🚀
-          </p>
-        </div>
-      </footer>
+      <div style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+        <Footer />
+      </div>
     </div>
   );
 };

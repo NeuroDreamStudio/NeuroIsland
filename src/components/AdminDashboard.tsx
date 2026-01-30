@@ -117,7 +117,7 @@ export const AdminDashboard: React.FC = () => {
 
   return (
     <>
-      <LayoutWrapper>
+      <LayoutWrapper showFooter={false}>
         <div className="w-full overflow-hidden">
         {/* Navigation Tabs */}
         <nav className="relative z-40 backdrop-blur-sm bg-black/20 border-b border-emerald-500/20 sticky top-0">

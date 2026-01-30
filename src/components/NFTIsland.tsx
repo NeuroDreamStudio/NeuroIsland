@@ -98,7 +98,7 @@ export const NFTIsland: React.FC = () => {
 
   return (
     <>
-      <LayoutWrapper>
+      <LayoutWrapper showFooter={false}>
         <div className="w-full overflow-hidden">
 
       {/* Main Content */}

@@ -179,120 +179,126 @@ export const NeuroTrivia: React.FC = () => {
   // Rendering Schermata Selezione Categoria
   if (showCategorySelect) {
     return (
-      <div className="min-h-screen w-full overflow-hidden" style={{
-        backgroundImage: 'url(/assets/images/trivia.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat',
-      }}>
-        {/* Dark overlay for better text readability */}
-        <div className="fixed inset-0 -z-20 bg-black/30" />
+      <>
+        <div className="min-h-screen w-full overflow-hidden" style={{
+          backgroundImage: 'url(/assets/images/trivia.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+        }}>
+          {/* Dark overlay for better text readability */}
+          <div className="fixed inset-0 -z-20 bg-black/30" />
 
-        {/* Content */}
-        <section className="relative py-20 px-16 md:px-24 lg:px-32" style={{ marginTop: '30vh' }}>
-          <div className="max-w-6xl mx-auto">
-            {/* Category Selection */}
-            <div>
-              <h3 className="text-2xl font-bold text-center mb-8 text-cyan-300">
-                Choose a Category
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                {categories.map((category, idx) => (
-                  <motion.button
-                    key={category}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    onClick={() => handleStartGame(category)}
-                    className="group relative p-8 rounded-2xl overflow-hidden transition-all backdrop-blur-xl border border-white/20"
-                    style={{ background: 'rgba(6, 182, 212, 0.15)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.1)' }}
-                  >
-                    <div className="relative z-10 text-center">
-                      <div className="text-4xl mb-2">
-                        {category === 'All' && '🌍'}
-                        {category === 'Crypto' && '💰'}
-                        {category === 'NFT' && '🎨'}
-                        {category === 'Gaming' && '🎮'}
-                        {category === 'Web3' && '🔗'}
+          {/* Content */}
+          <section className="relative py-20 px-16 md:px-24 lg:px-32" style={{ marginTop: '30vh' }}>
+            <div className="max-w-6xl mx-auto">
+              {/* Category Selection */}
+              <div>
+                <h3 className="text-2xl font-bold text-center mb-8 text-cyan-300">
+                  Choose a Category
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                  {categories.map((category, idx) => (
+                    <motion.button
+                      key={category}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                      onClick={() => handleStartGame(category)}
+                      className="group relative p-8 rounded-2xl overflow-hidden transition-all backdrop-blur-xl border border-white/20"
+                      style={{ background: 'rgba(6, 182, 212, 0.15)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.1)' }}
+                    >
+                      <div className="relative z-10 text-center">
+                        <div className="text-4xl mb-2">
+                          {category === 'All' && '🌍'}
+                          {category === 'Crypto' && '💰'}
+                          {category === 'NFT' && '🎨'}
+                          {category === 'Gaming' && '🎮'}
+                          {category === 'Web3' && '🔗'}
+                        </div>
+                        <h4 className="text-lg font-semibold text-white">{category}</h4>
+                        <p className="text-white/60 text-sm mt-2">
+                          {allQuestions.filter(q => category === 'All' || q.category === category).length} questions
+                        </p>
                       </div>
-                      <h4 className="text-lg font-semibold text-white">{category}</h4>
-                      <p className="text-white/60 text-sm mt-2">
-                        {allQuestions.filter(q => category === 'All' || q.category === category).length} questions
-                      </p>
-                    </div>
-                  </motion.button>
-                ))}
+                    </motion.button>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-      </div>
+        </div>
+        <Footer />
+      </>
     );
   }
 
   // Rendering Schermata Fine Gioco
   if (!gameState.gameActive) {
     return (
-      <div className="min-h-screen w-full overflow-hidden">
-        {/* Background */}
-        <div className="fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
-        </div>
+      <>
+        <div className="min-h-screen w-full overflow-hidden">
+          {/* Background */}
+          <div className="fixed inset-0 -z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
+          </div>
 
-        {/* Results */}
-        <section className="relative py-20 px-16 md:px-24 lg:px-32 flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="max-w-2xl w-full text-center"
-          >
-            <div className="text-8xl mb-6">🎉</div>
-            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Gioco Completato!
-            </h2>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-6 mb-12">
-              <div className="p-8 rounded-2xl backdrop-blur-xl border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
-                <p className="text-gray-400 mb-2">Correct Answers</p>
-                <p className="text-4xl font-bold text-cyan-400">
-                  {gameState.score} / {questions.length}
-                </p>
-              </div>
-              <div className="p-8 rounded-2xl backdrop-blur-xl border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
-                <p className="text-gray-400 mb-2">Earnings</p>
-                <p className="text-4xl font-bold text-green-400">
-                  {gameState.totalEarnings.toFixed(3)} SOL
-                </p>
-              </div>
-            </div>
-
-            {/* Percentage */}
-            <div className="text-2xl text-gray-300 mb-12">
-              Percentuale: {Math.round((gameState.score / questions.length) * 100)}%
-            </div>
-
-            {/* Buttons */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={handlePlayAgain}
-              className="w-full py-4 rounded-2xl backdrop-blur-md border border-cyan-400/30 text-white font-semibold text-lg hover:border-cyan-400/60 transition mb-4"
-              style={{ background: 'rgba(6, 182, 212, 0.3)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.2)' }}
+          {/* Results */}
+          <section className="relative py-20 px-16 md:px-24 lg:px-32 flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="max-w-2xl w-full text-center"
             >
-              🔄 Play Again
-            </motion.button>
-            <Link href="/">
-              <button className="w-full py-4 rounded-2xl backdrop-blur-md border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition" style={{ background: 'rgba(255, 255, 255, 0.05)' }}>
-                🏠 Back Home
-              </button>
-            </Link>
-          </motion.div>
-        </section>
+              <div className="text-8xl mb-6">🎉</div>
+              <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                Gioco Completato!
+              </h2>
 
-      </div>
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-6 mb-12">
+                <div className="p-8 rounded-2xl backdrop-blur-xl border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+                  <p className="text-gray-400 mb-2">Correct Answers</p>
+                  <p className="text-4xl font-bold text-cyan-400">
+                    {gameState.score} / {questions.length}
+                  </p>
+                </div>
+                <div className="p-8 rounded-2xl backdrop-blur-xl border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+                  <p className="text-gray-400 mb-2">Earnings</p>
+                  <p className="text-4xl font-bold text-green-400">
+                    {gameState.totalEarnings.toFixed(3)} SOL
+                  </p>
+                </div>
+              </div>
+
+              {/* Percentage */}
+              <div className="text-2xl text-gray-300 mb-12">
+                Percentuale: {Math.round((gameState.score / questions.length) * 100)}%
+              </div>
+
+              {/* Buttons */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={handlePlayAgain}
+                className="w-full py-4 rounded-2xl backdrop-blur-md border border-cyan-400/30 text-white font-semibold text-lg hover:border-cyan-400/60 transition mb-4"
+                style={{ background: 'rgba(6, 182, 212, 0.3)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.2)' }}
+              >
+                🔄 Play Again
+              </motion.button>
+              <Link href="/">
+                <button className="w-full py-4 rounded-2xl backdrop-blur-md border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition" style={{ background: 'rgba(255, 255, 255, 0.05)' }}>
+                  🏠 Back Home
+                </button>
+              </Link>
+            </motion.div>
+          </section>
+
+        </div>
+        <Footer />
+      </>
     );
   }
 

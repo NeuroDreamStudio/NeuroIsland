@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Footer from './Footer';
 
 export const AdminLogin: React.FC = () => {
   const router = useRouter();
@@ -159,6 +160,11 @@ export const AdminLogin: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Footer */}
+      <div style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+        <Footer />
+      </div>
     </div>
   );
 };
