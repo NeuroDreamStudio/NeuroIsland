@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export const HomePage: React.FC = () => {
+const HomePage: React.FC = () => {
   const [hoveredBtn, setHoveredBtn] = useState<string | null>(null);
 
   const buttons = [
@@ -49,16 +49,17 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div 
-      className="min-h-screen w-full overflow-hidden"
-      style={{
-        backgroundImage: 'url(/assets/images/base.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <>
+      <div 
+        className="min-h-screen w-full overflow-hidden"
+        style={{
+          backgroundImage: 'url(/assets/images/base.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
       {/* Dark overlay for better text readability */}
       <div className="fixed inset-0 -z-20 bg-black/30" />
 
@@ -238,10 +239,11 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Footer */}
-    </div>
+      </div>
 
-    {/* FOOTER SECTION - Completely separate */}
-    <Footer />
+      {/* FOOTER SECTION - Completely separate */}
+      <Footer />
+    </>
   );
 };
 
@@ -270,7 +272,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-center">
               {['Home', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-white hover:text-yellow-400 transition duration-200 font-medium">
+                  <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -284,7 +286,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-center">
               {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-white hover:text-yellow-400 transition duration-200 font-medium">
+                  <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -298,7 +300,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2 text-center">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-white hover:text-yellow-400 transition duration-200 font-medium">
+                  <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
