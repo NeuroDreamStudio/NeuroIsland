@@ -1,0 +1,41 @@
+{
+  "name": "neuroisland",
+  "version": "1.0.0",
+  "description": "NeuroIsland - NFT Gaming Hub with Caribbean Style",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeuroDreamStudio/NeuroIsland.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/NeuroDreamStudio/NeuroIsland/issues"
+  },
+  "homepage": "https://github.com/NeuroDreamStudio/NeuroIsland#readme",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "autoprefixer": "^10.4.23",
+    "framer-motion": "^12.29.2",
+    "next": "^16.1.6",
+    "pg": "^8.17.2",
+    "postcss": "^8.5.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "25.1.0",
+    "@types/react": "19.2.10"
+  }
+}

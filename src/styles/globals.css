@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Ocean Animation Keyframes */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -50px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, -100px) scale(0.9);
+  }
+  75% {
+    transform: translate(50px, -25px) scale(1.05);
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-1000px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.animate-wave {
+  animation: wave 15s linear infinite;
+}
+
+.animate-shimmer {
+  background-size: 1000px 100%;
+  animation: shimmer 3s infinite;
+}
+
+/* 3D Button Effects */
+.btn-3d {
+  position: relative;
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-3d:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.btn-3d:active {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Neon Glow Effect */
+.neon-glow {
+  text-shadow: 0 0 10px #FF006E, 0 0 20px #FF006E, 0 0 30px #FF006E;
+  animation: neon-flicker 2s infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 18%, 22%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px #FF006E, 0 0 20px #FF006E, 0 0 30px #FF006E;
+  }
+  20%, 24%, 55% {
+    text-shadow: 0 0 5px #FF006E;
+  }
+}
+
+/* Caribbean Wave Background */
+.caribbean-wave {
+  background: linear-gradient(135deg, #00D4FF 0%, #00FFFF 25%, #39FF14 50%, #FFD700 75%, #FF6B6B 100%);
+  animation: wave 8s infinite;
+}
+
+@keyframes wave {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+/* Glowing Border */
+.glow-border {
+  border: 2px solid;
+  border-image: linear-gradient(90deg, #FF006E, #00F5FF, #39FF14) 1;
+  box-shadow: inset 0 0 20px rgba(255, 0, 110, 0.2), 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+/* Floating Animation */
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF006E, #00F5FF);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FF00AA, #00FFFF);
+}
