@@ -39,14 +39,6 @@ export const HomePage: React.FC = () => {
       icon: '🥇',
     },
     {
-      id: 'wallet',
-      label: '💎 Wallet Hub',
-      description: 'Multi-chain crypto management',
-      color: 'from-amber-400 via-yellow-500 to-orange-600',
-      href: '/wallet',
-      icon: '🔗',
-    },
-    {
       id: 'ecosystem',
       label: '🗺️ Island Map',
       description: 'Explore the Neuro ecosystem',
