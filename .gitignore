@@ -48,3 +48,10 @@ temp/
 # Log files
 *.log
 logs/
+
+# Database files
+database/
+*.sql
+*.db
+*.sqlite
+*.sqlite3
