@@ -57,25 +57,18 @@ export const HomePage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full overflow-hidden bg-gradient-to-b from-blue-950 via-blue-900 to-teal-900">
-      {/* Animated Ocean Background */}
-      <div className="fixed inset-0 -z-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-cyan-900 via-blue-900 to-teal-800" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
-        <div className="absolute top-20 right-1/3 w-80 h-80 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
-        <div className="absolute bottom-10 left-1/2 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-4000" />
-        <div className="absolute top-0 right-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-pulse" />
-      </div>
-
-      <svg className="absolute bottom-0 w-full h-32 opacity-30" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M0,50 Q300,100 600,50 T1200,50 L1200,120 L0,120 Z" fill="url(#wave-gradient)" className="animate-wave" />
-        <defs>
-          <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#0d9488" stopOpacity="0.1" />
-          </linearGradient>
-        </defs>
-      </svg>
+    <div 
+      className="min-h-screen w-full overflow-hidden"
+      style={{
+        backgroundImage: 'url(/assets/images/base.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Dark overlay for better text readability */}
+      <div className="fixed inset-0 -z-20 bg-black/30" />
 
       {/* Navigation Bar */}
       <nav className="relative z-50 backdrop-blur-md bg-gradient-to-r from-blue-900/80 via-teal-900/80 to-cyan-900/80 border-b border-cyan-400/30 shadow-lg">
