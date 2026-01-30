@@ -238,8 +238,10 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <Footer />
     </div>
+
+    {/* FOOTER SECTION - Completely separate */}
+    <Footer />
   );
 };
 
