@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import LayoutWrapper from './LayoutWrapper';
+import Footer from './Footer';
 
 interface NFTItem {
   id: number;
@@ -95,32 +97,12 @@ export const NFTIsland: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900" />
-        <div className="absolute top-0 left-1/4 w-80 h-80 bg-pink-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob" />
-        <div className="absolute top-1/2 right-0 w-80 h-80 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
-      </div>
-
-      {/* Header */}
-      <header className="relative z-50 backdrop-blur-md bg-black/30 border-b border-pink-500/30 sticky top-0">
-        <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
-          <Link href="/">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent cursor-pointer hover:opacity-80">
-              🏝️ NFT Island
-            </h1>
-          </Link>
-          <Link href="/">
-            <button className="px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-cyan-500 hover:shadow-lg hover:shadow-pink-500/50 transition cursor-pointer">
-              ← Back Home
-            </button>
-          </Link>
-        </div>
-      </header>
+    <>
+      <LayoutWrapper>
+        <div className="w-full overflow-hidden">
 
       {/* Main Content */}
-      <section className="relative py-16 px-4">
+      <section className="relative py-16 px-16 md:px-24 lg:px-32">
         <div className="max-w-7xl mx-auto">
           {/* Title */}
           <motion.div
@@ -143,11 +125,12 @@ export const NFTIsland: React.FC = () => {
                 key={chain}
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setFilter(chain as any)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all ${
+                className={`px-6 py-2 rounded-xl font-medium transition-all backdrop-blur-md border ${
                   filter === chain
-                    ? 'bg-gradient-to-r from-pink-500 to-cyan-500 text-white shadow-lg shadow-pink-500/50'
-                    : 'bg-white/10 text-cyan-300 hover:bg-white/20'
+                    ? 'border-pink-400/50 text-white'
+                    : 'border-white/20 text-white/70 hover:text-white hover:border-white/40'
                 }`}
+                style={{ background: filter === chain ? 'rgba(236, 72, 153, 0.3)' : 'rgba(255, 255, 255, 0.05)' }}
               >
                 {chain === 'all' ? '🌍 All' : chain}
               </motion.button>
@@ -165,9 +148,9 @@ export const NFTIsland: React.FC = () => {
                 onClick={() => setSelectedNFT(nft)}
                 className="group cursor-pointer"
               >
-                <div className={`relative bg-gradient-to-br ${getRarityColor(nft.rarity)} p-6 rounded-2xl overflow-hidden transition-all duration-300 transform group-hover:scale-105`}>
+                <div className="relative backdrop-blur-xl border border-white/20 p-6 rounded-2xl overflow-hidden transition-all duration-300 transform group-hover:scale-105 group-hover:border-white/40" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
                   {/* Shine Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform translate-x-full group-hover:translate-x-0 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-10 transform translate-x-full group-hover:translate-x-0 transition-all duration-500" />
 
                   {/* NFT Image Area */}
                   <div className="relative z-10 bg-black/30 rounded-xl p-12 mb-4 flex items-center justify-center">
@@ -279,25 +262,11 @@ export const NFTIsland: React.FC = () => {
         </div>
       )}
 
-      {/* Footer */}
-      <Footer />
-    </div>
+      </div>
+    </LayoutWrapper>
+    <Footer />
+    </>
   );
 };
-
-const Footer: React.FC = () => (
-  <footer className="relative border-t border-cyan-500/20 backdrop-blur-sm bg-black/40 mt-20">
-    <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-      <p className="text-gray-400 mb-4">
-        © 2026 NeuroIsland NFT. All rights reserved. 🎨
-      </p>
-      <div className="flex justify-center space-x-6">
-        <a href="#" className="text-pink-400 hover:text-cyan-400 transition">Discord</a>
-        <a href="#" className="text-pink-400 hover:text-cyan-400 transition">Twitter</a>
-        <a href="#" className="text-pink-400 hover:text-cyan-400 transition">OpenSea</a>
-      </div>
-    </div>
-  </footer>
-);
 
 export default NFTIsland;

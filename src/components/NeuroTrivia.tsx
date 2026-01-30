@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import LayoutWrapper from './LayoutWrapper';
+import Footer from './Footer';
 
 interface Question {
   id: number;
@@ -177,68 +179,19 @@ export const NeuroTrivia: React.FC = () => {
   // Rendering Schermata Selezione Categoria
   if (showCategorySelect) {
     return (
-      <div className="min-h-screen w-full overflow-hidden">
-        {/* Background */}
-        <div className="fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
-          <div className="absolute top-0 left-1/4 w-80 h-80 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
-        </div>
-
-        {/* Header */}
-        <header className="relative z-50 backdrop-blur-md bg-black/30 border-b border-cyan-500/30 sticky top-0">
-          <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
-            <Link href="/">
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent cursor-pointer hover:opacity-80">
-                🧠 Neuro Trivia
-              </h1>
-            </Link>
-            <Link href="/">
-              <button className="px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-lg hover:shadow-cyan-500/50 transition cursor-pointer">
-                ← Back Home
-              </button>
-            </Link>
-          </div>
-        </header>
+      <div className="min-h-screen w-full overflow-hidden" style={{
+        backgroundImage: 'url(/assets/images/trivia.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }}>
+        {/* Dark overlay for better text readability */}
+        <div className="fixed inset-0 -z-20 bg-black/30" />
 
         {/* Content */}
-        <section className="relative py-20 px-4">
+        <section className="relative py-20 px-16 md:px-24 lg:px-32" style={{ marginTop: '30vh' }}>
           <div className="max-w-6xl mx-auto">
-            {/* Title */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                🎯 Neuro Trivia Challenge
-              </h2>
-              <p className="text-cyan-200 text-xl">
-                Answer questions and earn cryptocurrency! 💰
-              </p>
-            </motion.div>
-
-            {/* Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              {[
-                { icon: '🎮', title: 'Play', desc: 'Trivia on Web3, Gaming and NFT' },
-                { icon: '🧠', title: 'Learn', desc: 'Questions from industry experts' },
-                { icon: '💎', title: 'Earn', desc: 'Win SOL, ETH, CRO' },
-              ].map((card, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="p-6 rounded-xl backdrop-blur-sm bg-white/5 border border-cyan-500/30 text-center"
-                >
-                  <div className="text-4xl mb-3">{card.icon}</div>
-                  <h3 className="text-xl font-bold text-cyan-300 mb-2">{card.title}</h3>
-                  <p className="text-gray-300">{card.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-
             {/* Category Selection */}
             <div>
               <h3 className="text-2xl font-bold text-center mb-8 text-cyan-300">
@@ -253,23 +206,22 @@ export const NeuroTrivia: React.FC = () => {
                     transition={{ delay: idx * 0.1 }}
                     whileHover={{ scale: 1.05 }}
                     onClick={() => handleStartGame(category)}
-                    className="group relative p-8 rounded-xl overflow-hidden transition-all"
+                    className="group relative p-8 rounded-2xl overflow-hidden transition-all backdrop-blur-xl border border-white/20"
+                    style={{ background: 'rgba(6, 182, 212, 0.15)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.1)' }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 group-hover:from-cyan-400 group-hover:to-blue-500 transition" />
                     <div className="relative z-10 text-center">
                       <div className="text-4xl mb-2">
-                        {category === 'Tutte' && '🌍'}
-                        {category === 'Criptovalute' && '💰'}
+                        {category === 'All' && '🌍'}
+                        {category === 'Crypto' && '💰'}
                         {category === 'NFT' && '🎨'}
                         {category === 'Gaming' && '🎮'}
                         {category === 'Web3' && '🔗'}
                       </div>
-                      <h4 className="text-lg font-bold text-white">{category}</h4>
-                      <p className="text-white/80 text-sm mt-2">
-                        {allQuestions.filter(q => category === 'Tutte' || q.category === category).length} domande
+                      <h4 className="text-lg font-semibold text-white">{category}</h4>
+                      <p className="text-white/60 text-sm mt-2">
+                        {allQuestions.filter(q => category === 'All' || q.category === category).length} questions
                       </p>
                     </div>
-                    <div className="absolute inset-0 rounded-xl border-2 border-transparent bg-gradient-to-br from-white/20 to-transparent group-hover:from-white/40 transition-all" />
                   </motion.button>
                 ))}
               </div>
@@ -277,8 +229,6 @@ export const NeuroTrivia: React.FC = () => {
           </div>
         </section>
 
-        {/* Footer */}
-        <Footer />
       </div>
     );
   }
@@ -292,22 +242,8 @@ export const NeuroTrivia: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
         </div>
 
-        {/* Header */}
-        <header className="relative z-50 backdrop-blur-md bg-black/30 border-b border-cyan-500/30 sticky top-0">
-          <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              🧠 Neuro Trivia
-            </h1>
-            <Link href="/">
-              <button className="px-6 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:shadow-lg transition cursor-pointer">
-                ← Torna Home
-              </button>
-            </Link>
-          </div>
-        </header>
-
         {/* Results */}
-        <section className="relative py-20 px-4 flex items-center justify-center">
+        <section className="relative py-20 px-16 md:px-24 lg:px-32 flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -320,14 +256,14 @@ export const NeuroTrivia: React.FC = () => {
 
             {/* Stats */}
             <div className="grid grid-cols-2 gap-6 mb-12">
-              <div className="p-8 rounded-xl backdrop-blur-sm bg-white/5 border border-cyan-500/30">
-                <p className="text-gray-400 mb-2">Risposte Corrette</p>
+              <div className="p-8 rounded-2xl backdrop-blur-xl border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+                <p className="text-gray-400 mb-2">Correct Answers</p>
                 <p className="text-4xl font-bold text-cyan-400">
                   {gameState.score} / {questions.length}
                 </p>
               </div>
-              <div className="p-8 rounded-xl backdrop-blur-sm bg-white/5 border border-cyan-500/30">
-                <p className="text-gray-400 mb-2">Guadagni</p>
+              <div className="p-8 rounded-2xl backdrop-blur-xl border border-white/20" style={{ background: 'rgba(255, 255, 255, 0.05)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+                <p className="text-gray-400 mb-2">Earnings</p>
                 <p className="text-4xl font-bold text-green-400">
                   {gameState.totalEarnings.toFixed(3)} SOL
                 </p>
@@ -343,57 +279,30 @@ export const NeuroTrivia: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               onClick={handlePlayAgain}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-lg hover:shadow-cyan-500/50 transition mb-4"
+              className="w-full py-4 rounded-2xl backdrop-blur-md border border-cyan-400/30 text-white font-semibold text-lg hover:border-cyan-400/60 transition mb-4"
+              style={{ background: 'rgba(6, 182, 212, 0.3)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.2)' }}
             >
-              🔄 Gioca Di Nuovo
+              🔄 Play Again
             </motion.button>
             <Link href="/">
-              <button className="w-full py-4 rounded-xl bg-white/10 text-white font-bold text-lg hover:bg-white/20 transition">
-                🏠 Torna Home
+              <button className="w-full py-4 rounded-2xl backdrop-blur-md border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition" style={{ background: 'rgba(255, 255, 255, 0.05)' }}>
+                🏠 Back Home
               </button>
             </Link>
           </motion.div>
         </section>
 
-        {/* Footer */}
-        <Footer />
       </div>
     );
   }
 
   // Rendering Schermata Domanda
   return (
-    <div className="min-h-screen w-full overflow-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
-        <div className="absolute top-0 left-1/4 w-80 h-80 bg-cyan-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000" />
-      </div>
-
-      {/* Header */}
-      <header className="relative z-50 backdrop-blur-md bg-black/30 border-b border-cyan-500/30 sticky top-0">
-        <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-            🧠 Neuro Trivia
-          </h1>
-          <div className="flex items-center space-x-6">
-            <div className="text-center">
-              <p className="text-gray-400 text-sm">Domanda</p>
-              <p className="text-2xl font-bold text-cyan-400">
-                {gameState.currentQuestion + 1} / {questions.length}
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-gray-400 text-sm">Punti</p>
-              <p className="text-2xl font-bold text-green-400">{gameState.score}</p>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <>
+      <LayoutWrapper showFooter={false}>
+        <div className="w-full overflow-hidden">
       {/* Question Section */}
-      <section className="relative py-12 px-4 flex items-center justify-center min-h-[calc(100vh-200px)]">
+      <section className="relative py-12 px-16 md:px-24 lg:px-32 flex items-center justify-center min-h-[calc(100vh-200px)]">
         <motion.div
           key={gameState.currentQuestion}
           initial={{ opacity: 0, y: 20 }}
@@ -432,15 +341,25 @@ export const NeuroTrivia: React.FC = () => {
                   whileTap={!gameState.answered ? { scale: 0.98 } : {}}
                   onClick={() => handleAnswer(idx)}
                   disabled={gameState.answered}
-                  className={`relative p-6 rounded-xl text-left font-semibold transition-all text-lg ${
+                  className={`relative p-6 rounded-2xl text-center font-medium transition-all text-lg backdrop-blur-md ${
                     !gameState.answered
-                      ? 'bg-gradient-to-r from-cyan-500/30 to-blue-600/30 border border-cyan-400/50 hover:border-cyan-300 text-white cursor-pointer'
+                      ? 'border border-white/20 hover:border-white/40 text-white cursor-pointer'
                       : showCorrect
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-600 border border-green-400 text-white'
+                      ? 'border border-green-400/50 text-white'
                       : showWrong
-                      ? 'bg-gradient-to-r from-red-500 to-red-600 border border-red-400 text-white'
-                      : 'bg-gradient-to-r from-gray-500/30 to-gray-600/30 border border-gray-400/30 text-gray-300 cursor-not-allowed'
+                      ? 'border border-red-400/50 text-white'
+                      : 'border border-gray-400/20 text-gray-400 cursor-not-allowed'
                   }`}
+                  style={{
+                    background: !gameState.answered
+                      ? 'rgba(255, 255, 255, 0.05)'
+                      : showCorrect
+                      ? 'rgba(34, 197, 94, 0.3)'
+                      : showWrong
+                      ? 'rgba(239, 68, 68, 0.3)'
+                      : 'rgba(107, 114, 128, 0.1)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
+                  }}
                 >
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl font-bold">
@@ -461,9 +380,10 @@ export const NeuroTrivia: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               onClick={handleNextQuestion}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-lg hover:shadow-lg hover:shadow-cyan-500/50 transition"
+              className="w-full py-4 rounded-2xl backdrop-blur-md border border-cyan-400/30 text-white font-semibold text-lg hover:border-cyan-400/60 transition"
+              style={{ background: 'rgba(6, 182, 212, 0.3)', boxShadow: '0 8px 32px rgba(6, 182, 212, 0.2)' }}
             >
-              {gameState.currentQuestion < questions.length - 1 ? '➡️ Prossima Domanda' : '🏁 Vedi Risultati'}
+              {gameState.currentQuestion < questions.length - 1 ? '➡️ Next Question' : '🏁 See Results'}
             </motion.button>
           )}
 
@@ -472,12 +392,13 @@ export const NeuroTrivia: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="mt-8 text-center p-4 rounded-xl bg-green-500/20 border border-green-500/50"
+              className="mt-8 text-center p-4 rounded-2xl backdrop-blur-md border border-green-400/30"
+              style={{ background: 'rgba(34, 197, 94, 0.15)' }}
             >
               <p className="text-green-300">
                 {gameState.selectedAnswer === currentQuestion.correctAnswer
-                  ? `✅ Corretto! +${currentQuestion.reward} SOL`
-                  : '❌ Sbagliato!'}
+                  ? `✅ Correct! +${currentQuestion.reward} SOL`
+                  : '❌ Wrong!'}
               </p>
             </motion.div>
           )}
@@ -485,26 +406,20 @@ export const NeuroTrivia: React.FC = () => {
       </section>
 
       {/* Progress Bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-1 bg-gray-800">
+      <div className="fixed bottom-0 left-0 right-0 h-1 backdrop-blur-md" style={{ background: 'rgba(15, 23, 42, 0.5)' }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${((gameState.currentQuestion + 1) / questions.length) * 100}%` }}
           transition={{ duration: 0.5 }}
-          className="h-full bg-gradient-to-r from-cyan-500 to-blue-600"
+          className="h-full"
+          style={{ background: 'rgba(6, 182, 212, 0.8)' }}
         />
       </div>
-    </div>
+      </div>
+      </LayoutWrapper>
+      <Footer />
+    </>
   );
 };
-
-const Footer: React.FC = () => (
-  <footer className="relative border-t border-cyan-500/20 backdrop-blur-sm bg-black/40 mt-20">
-    <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-      <p className="text-gray-400">
-        © 2026 NeuroIsland Trivia. Gioca responsabilmente! 🧠
-      </p>
-    </div>
-  </footer>
-);
 
 export default NeuroTrivia;
