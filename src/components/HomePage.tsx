@@ -137,69 +137,56 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Main Buttons Grid */}
+      {/* Menu Buttons Section */}
       <section className="relative py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.h3
-            className="text-center text-3xl md:text-4xl font-bold mb-12 text-cyan-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            🗺️ Explore the Island
-          </motion.h3>
+        <div className="max-w-2xl mx-auto space-y-4">
+          {buttons.map((btn, index) => (
+            <motion.div
+              key={btn.id}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+            >
+              <Link href={btn.href}>
+                <motion.div
+                  className={`relative bg-gradient-to-r ${btn.color} p-6 rounded-xl cursor-pointer group overflow-hidden`}
+                  whileHover={{ scale: 1.05, x: 10 }}
+                  whileTap={{ scale: 0.95 }}
+                  onMouseEnter={() => setHoveredBtn(btn.id)}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                >
+                  {/* Shimmer effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-all duration-500" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {buttons.map((btn, index) => (
-              <motion.div
-                key={btn.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                onMouseEnter={() => setHoveredBtn(btn.id)}
-                onMouseLeave={() => setHoveredBtn(null)}
-                whileHover={{ y: -15 }}
-              >
-                <Link href={btn.href}>
-                  <motion.div
-                    className="relative h-full cursor-pointer group"
-                    animate={hoveredBtn === btn.id ? { scale: 1.02 } : { scale: 1 }}
-                  >
-                    <div className={`relative bg-gradient-to-br ${btn.color} p-8 rounded-3xl overflow-hidden backdrop-blur-xl shadow-2xl border border-white/20 transition-all duration-300 h-full flex flex-col justify-between`}>
-                      <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${btn.color} opacity-0 group-hover:opacity-30 transition-all duration-300 blur-xl -z-10`} />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-all duration-500" />
-
-                      <div className="relative z-10">
-                        <motion.div 
-                          className="text-6xl mb-4"
-                          animate={hoveredBtn === btn.id ? { rotate: 12, scale: 1.1 } : { rotate: 0, scale: 1 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
-                        >
-                          {btn.icon}
-                        </motion.div>
-                        <h3 className="text-2xl md:text-xl font-bold text-white mb-3 text-left">
-                          {btn.label}
-                        </h3>
-                        <p className="text-white/90 text-sm text-left leading-relaxed">
-                          {btn.description}
-                        </p>
-                      </div>
-
-                      <motion.div
-                        className="mt-6 text-yellow-400 text-2xl"
-                        animate={hoveredBtn === btn.id ? { x: 5 } : { x: 0 }}
+                  <div className="relative z-10 flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <motion.div 
+                        className="text-4xl"
+                        animate={hoveredBtn === btn.id ? { rotate: 12, scale: 1.1 } : { rotate: 0, scale: 1 }}
                         transition={{ type: 'spring', stiffness: 300 }}
                       >
-                        →
+                        {btn.icon}
                       </motion.div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">{btn.label}</h3>
+                        <p className="text-white/90 text-sm">{btn.description}</p>
+                      </div>
                     </div>
+                    <motion.div
+                      className="text-white text-2xl font-bold"
+                      animate={hoveredBtn === btn.id ? { x: 10 } : { x: 0 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      →
+                    </motion.div>
+                  </div>
 
-                    <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${btn.color} rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-x-0 group-hover:scale-x-100 origin-left`} />
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                  {/* Border glow effect */}
+                  <div className={`absolute inset-0 border-2 border-white/20 group-hover:border-white/50 rounded-xl transition-all duration-300 pointer-events-none`} />
+                </motion.div>
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -258,27 +245,30 @@ export const HomePage: React.FC = () => {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative border-t border-cyan-400/20 backdrop-blur-sm bg-gradient-to-b from-blue-900/50 to-teal-900/50 mt-20">
+    <footer className="relative mt-20 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 border-t-4 border-cyan-500/50">
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-4 flex items-center space-x-2">
-              <span>🏝️</span>
-              <span className="bg-gradient-to-r from-cyan-300 to-emerald-400 bg-clip-text text-transparent">
-                NeuroIsland
-              </span>
-            </h3>
-            <p className="text-cyan-200/70">
-              Your tropical paradise for gaming, NFTs, and Web3 adventures
-            </p>
-          </div>
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <h3 className="text-3xl font-bold mb-3 flex items-center justify-center space-x-3">
+            <span>🏝️</span>
+            <span className="bg-gradient-to-r from-cyan-300 via-emerald-300 to-teal-400 bg-clip-text text-transparent">
+              NeuroIsland
+            </span>
+          </h3>
+          <p className="text-cyan-200/80 text-lg max-w-2xl mx-auto">
+            Your tropical paradise for gaming, NFTs, and Web3 adventures
+          </p>
+        </div>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-cyan-300">Navigation</h4>
-            <ul className="space-y-2">
-              {['Home', 'NFT Gallery', 'Games', 'Wallet'].map((link) => (
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          {/* Navigation */}
+          <div className="flex flex-col items-center">
+            <h4 className="text-lg font-bold mb-5 text-cyan-300 uppercase tracking-wider">Navigation</h4>
+            <ul className="space-y-2 text-center">
+              {['Home', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-cyan-200/70 hover:text-yellow-400 transition">
+                  <a href="#" className="text-cyan-200/80 hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -286,12 +276,13 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-cyan-300">Community</h4>
-            <ul className="space-y-2">
+          {/* Community */}
+          <div className="flex flex-col items-center">
+            <h4 className="text-lg font-bold mb-5 text-emerald-300 uppercase tracking-wider">Community</h4>
+            <ul className="space-y-2 text-center">
               {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-cyan-200/70 hover:text-yellow-400 transition">
+                  <a href="#" className="text-cyan-200/80 hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -299,12 +290,13 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-cyan-300">Legal</h4>
-            <ul className="space-y-2">
+          {/* Legal */}
+          <div className="flex flex-col items-center">
+            <h4 className="text-lg font-bold mb-5 text-teal-300 uppercase tracking-wider">Legal</h4>
+            <ul className="space-y-2 text-center">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-cyan-200/70 hover:text-yellow-400 transition">
+                  <a href="#" className="text-cyan-200/80 hover:text-yellow-400 transition duration-200 font-medium">
                     {link}
                   </a>
                 </li>
@@ -313,14 +305,15 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-cyan-400/20 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+        {/* Bottom Bar */}
+        <div className="border-t border-cyan-500/30 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
             <p className="text-cyan-200/60 text-sm">
               © 2026 NeuroIsland. All rights reserved. 🚀
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <span className="text-emerald-400">💎 Powered by Web3</span>
-              <span className="text-cyan-400">✨ Built with Love</span>
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+              <span className="text-emerald-400 font-medium">💎 Powered by Web3</span>
+              <span className="text-cyan-400 font-medium">✨ Built with Love</span>
             </div>
           </div>
         </div>
