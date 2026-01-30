@@ -265,47 +265,49 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-3 gap-16 mb-12">
-          {/* Navigation */}
-          <div className="flex flex-col items-start">
-            <h4 className="text-lg font-bold mb-5 text-cyan-400 uppercase tracking-wider">Navigation</h4>
-            <ul className="space-y-3 text-left w-full">
-              {['Home', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="flex justify-center mb-12">
+          <div className="grid grid-cols-3 gap-8">
+            {/* Navigation */}
+            <div className="flex flex-col items-start">
+              <h4 className="text-lg font-bold mb-5 text-cyan-400 uppercase tracking-wider">Navigation</h4>
+              <ul className="space-y-3 text-left w-full">
+                {['Home', 'NFT Gallery', 'Games', 'Rewards'].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-gray-300 hover:text-yellow-400 transition duration-200 font-medium">
+                      {link}
+                    </a>
+                  </li>
+                ))}  
+              </ul>
+            </div>
 
-          {/* Community */}
-          <div className="flex flex-col items-start">
-            <h4 className="text-lg font-bold mb-5 text-emerald-400 uppercase tracking-wider">Community</h4>
-            <ul className="space-y-3 text-left w-full">
-              {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Community */}
+            <div className="flex flex-col items-start">
+              <h4 className="text-lg font-bold mb-5 text-emerald-400 uppercase tracking-wider">Community</h4>
+              <ul className="space-y-3 text-left w-full">
+                {['Discord', 'Twitter', 'Telegram', 'Instagram'].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-gray-300 hover:text-yellow-400 transition duration-200 font-medium">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Legal */}
-          <div className="flex flex-col items-start">
-            <h4 className="text-lg font-bold mb-5 text-teal-400 uppercase tracking-wider">Legal</h4>
-            <ul className="space-y-3 text-left w-full">
-              {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-yellow-400 transition duration-200 font-medium">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {/* Legal */}
+            <div className="flex flex-col items-start">
+              <h4 className="text-lg font-bold mb-5 text-teal-400 uppercase tracking-wider">Legal</h4>
+              <ul className="space-y-3 text-left w-full">
+                {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
+                  <li key={link}>
+                    <a href="#" className="text-gray-300 hover:text-yellow-400 transition duration-200 font-medium">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
