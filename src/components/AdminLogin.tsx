@@ -51,10 +51,10 @@ export const AdminLogin: React.FC = () => {
       <div className="fixed inset-0 -z-20 bg-black/30" />
 
       {/* Back Button */}
-      <Link href="/">
-        <div className="absolute top-6 left-6 cursor-pointer z-50">
+      <Link href="/" legacyBehavior>
+        <a className="absolute top-6 left-6 cursor-pointer z-50">
           <span className="text-cyan-400 hover:text-cyan-300 transition font-medium">← Back Home</span>
-        </div>
+        </a>
       </Link>
 
       {/* Login Card - Centered */}

@@ -3,215 +3,295 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import LayoutWrapper from '@/components/LayoutWrapper';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 
 interface Player {
   rank: number;
   name: string;
   points: number;
   wins: number;
-  club?: string;
-  avatar: string;
+  level: string;
+  emoji: string;
+  isYou?: boolean;
 }
 
-const players: Player[] = [
-  { rank: 1, name: 'CryptoMaster99', points: 45230, wins: 127, club: 'Crypto Masters', avatar: '👑' },
-  { rank: 2, name: 'TriviaStar42', points: 42890, wins: 118, club: 'Science Nerds', avatar: '⭐' },
-  { rank: 3, name: 'QuizGenius7', points: 41560, wins: 115, club: 'History Buffs', avatar: '🧠' },
-  { rank: 4, name: 'TechInnovator', points: 39870, wins: 108, club: 'Tech Innovators', avatar: '💻' },
-  { rank: 5, name: 'PopCultureKing', points: 38450, wins: 102, club: 'Pop Culture Central', avatar: '🎬' },
-  { rank: 6, name: 'ScienceNerd101', points: 36780, wins: 98, club: 'Science Nerds', avatar: '🔬' },
-  { rank: 7, name: 'HistoryBuff88', points: 35620, wins: 94, club: 'History Buffs', avatar: '📚' },
-  { rank: 8, name: 'SportsFanatic23', points: 34190, wins: 89, avatar: '⚽' },
-  { rank: 9, name: 'QuizMaster555', points: 32870, wins: 85, avatar: '🏆' },
-  { rank: 10, name: 'BrainChampion99', points: 31450, wins: 81, avatar: '🧠' },
+const mockPlayers: Player[] = [
+  { rank: 1, name: 'CryptoMaster99', points: 45890, wins: 234, level: '🔴 Legend', emoji: '👑', isYou: false },
+  { rank: 2, name: 'TriviaKing42', points: 42350, wins: 198, level: '🟠 Master', emoji: '🧠', isYou: false },
+  { rank: 3, name: 'QuizGenius7', points: 39120, wins: 176, level: '🟡 Elite', emoji: '⚡', isYou: false },
+  { rank: 4, name: 'NeuralStrike', points: 37890, wins: 165, level: '🟢 Expert', emoji: '🎯', isYou: false },
+  { rank: 5, name: 'PixelMind', points: 35670, wins: 152, level: '🔵 Expert', emoji: '🌟', isYou: false },
+  { rank: 6, name: 'You', points: 28450, wins: 124, level: '🟣 Advanced', emoji: '😎', isYou: true },
+  { rank: 7, name: 'IceBreaker22', points: 25890, wins: 112, level: '⚪ Advanced', emoji: '❄️', isYou: false },
+  { rank: 8, name: 'SonicWave99', points: 23450, wins: 98, level: '⚪ Intermediate', emoji: '🌊', isYou: false },
+  { rank: 9, name: 'PhantomX', points: 21340, wins: 87, level: '⚪ Intermediate', emoji: '👻', isYou: false },
+  { rank: 10, name: 'CosmicRay', points: 19870, wins: 76, level: '⚪ Intermediate', emoji: '🚀', isYou: false },
 ];
 
 const LeaderboardPage = () => {
-  const [timeFilter, setTimeFilter] = useState<'all' | 'month' | 'week'>('all');
+  const [filter, setFilter] = useState('all');
+
+  const filteredPlayers = filter === 'all' ? mockPlayers : mockPlayers.slice(0, 10);
 
   return (
     <>
-      <LayoutWrapper showFooter={false}>
-        <section className="relative py-16 px-4 md:px-8">
-          <div className="max-w-4xl mx-auto">
-            {/* Header */}
+      <div 
+        className="min-h-screen w-full overflow-visible"
+        style={{
+          backgroundImage: 'url(/assets/images/base.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="fixed inset-0 -z-20 bg-black/30" />
+
+        <section className="relative pt-16 pb-32 px-4 md:px-16 lg:px-24 min-h-screen flex items-center justify-center overflow-x-hidden">
+          <div className="w-full max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-5xl md:text-7xl font-black mb-4">
+                🏆 <span style={{
+                  background: 'linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #ec4899 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>Leaderboard</span>
+              </h1>
+              <p className="text-lg md:text-xl text-cyan-100">Compete and climb the ranks</p>
+            </motion.div>
+
+            {/* Your Position Card */}
             <motion.div
               initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
+              transition={{ delay: 0.1, duration: 0.8 }}
+              style={{
+                padding: '24px',
+                borderRadius: '16px',
+                backdropFilter: 'blur(10px)',
+                border: '2px solid rgba(34, 197, 94, 0.5)',
+                background: 'rgba(34, 197, 94, 0.2)',
+                boxShadow: '0 8px 32px rgba(34, 197, 94, 0.3)',
+                color: 'white',
+                marginBottom: '24px',
+                maxWidth: '512px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                🏅 Global Leaderboard
-              </h1>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400">
-                See where you stand against the best trivia players worldwide
-              </p>
-            </motion.div>
-
-            {/* Your Position */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mb-12"
-            >
-              <Card variant="elevated" className="p-6 bg-gradient-to-r from-orange-500/10 to-pink-500/10 border-0">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1">
-                      Your Ranking
-                    </p>
-                    <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">
-                      #156 • 18,420 Points
-                    </h2>
-                  </div>
-                  <div className="text-5xl">🎯</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '20px' }}>
+                <div>
+                  <p style={{ fontSize: '12px', opacity: 0.8, marginBottom: '4px' }}>YOUR CURRENT RANK</p>
+                  <p style={{ fontSize: '32px', fontWeight: 'bold' }}>
+                    #6 - 😎 You
+                  </p>
                 </div>
-              </Card>
+                <div>
+                  <p style={{ fontSize: '12px', opacity: 0.8, marginBottom: '4px', textAlign: 'right' }}>Points</p>
+                  <p style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'right' }}>28,450</p>
+                  <p style={{ fontSize: '12px', opacity: 0.8, marginTop: '4px', color: 'rgba(34, 197, 94, 0.8)' }}>↑ 2 spots this week</p>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Filters */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mb-8 flex gap-4"
-            >
-              {(['all', 'month', 'week'] as const).map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setTimeFilter(filter)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    timeFilter === filter
-                      ? 'bg-orange-500 text-white'
-                      : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-white hover:bg-neutral-300 dark:hover:bg-neutral-700'
-                  }`}
+            {/* Filter Buttons */}
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
+              {['all', 'this week', 'this month'].map((period, idx) => (
+                <motion.button
+                  key={period}
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + idx * 0.1, duration: 0.8 }}
+                  onClick={() => setFilter(period)}
+                  style={{
+                    padding: '12px 24px',
+                    borderRadius: '12px',
+                    border: filter === period ? '2px solid rgba(168, 85, 247, 0.6)' : '1px solid rgba(255,255,255,0.2)',
+                    background: filter === period ? 'rgba(168, 85, 247, 0.3)' : 'transparent',
+                    color: 'white',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = filter === period ? 'rgba(168, 85, 247, 0.5)' : 'rgba(168, 85, 247, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = filter === period ? 'rgba(168, 85, 247, 0.3)' : 'transparent';
+                  }}
                 >
-                  {filter === 'all' && 'All Time'}
-                  {filter === 'month' && 'This Month'}
-                  {filter === 'week' && 'This Week'}
-                </button>
+                  {period === 'all' && '📊 All Time'}
+                  {period === 'this week' && '📅 This Week'}
+                  {period === 'this month' && '📆 This Month'}
+                </motion.button>
               ))}
-            </motion.div>
+            </div>
 
-            {/* Leaderboard Table */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <Card variant="elevated" className="overflow-hidden">
-                <div className="hidden md:block">
-                  {/* Header */}
-                  <div className="grid grid-cols-12 gap-4 p-6 bg-neutral-100 dark:bg-neutral-800 font-bold text-sm text-neutral-600 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700">
-                    <div className="col-span-1">Rank</div>
-                    <div className="col-span-5">Player</div>
-                    <div className="col-span-2">Points</div>
-                    <div className="col-span-2">Wins</div>
-                    <div className="col-span-2">Club</div>
+            {/* Players Table - Grid Layout */}
+            <div className="max-w-4xl mx-auto mb-16">
+              {filteredPlayers.map((player, idx) => (
+                <motion.div
+                  key={player.rank}
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + idx * 0.05, duration: 0.6 }}
+                  style={{
+                    padding: '20px 24px',
+                    borderRadius: '12px',
+                    backdropFilter: 'blur(10px)',
+                    border: player.isYou ? '2px solid rgba(34, 197, 94, 0.5)' : '1px solid rgba(255,255,255,0.1)',
+                    background: player.isYou ? 'rgba(34, 197, 94, 0.1)' : idx % 2 === 0 ? 'rgba(99, 102, 241, 0.1)' : 'rgba(168, 85, 247, 0.1)',
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '12px',
+                    cursor: 'pointer',
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = 'translateX(8px)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(99, 102, 241, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = 'translateX(0)';
+                    (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
+                    <div style={{ 
+                      fontSize: '24px', 
+                      fontWeight: 'bold', 
+                      minWidth: '40px',
+                      color: player.rank <= 3 ? idx === 0 ? '#FFD700' : idx === 1 ? '#C0C0C0' : '#CD7F32' : 'rgba(255,255,255,0.6)',
+                    }}>
+                      #{player.rank}
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '16px', fontWeight: '600', marginBottom: '4px' }}>
+                        {player.emoji} {player.name}
+                      </p>
+                      <p style={{ fontSize: '12px', opacity: 0.7 }}>{player.level}</p>
+                    </div>
                   </div>
 
-                  {/* Rows */}
-                  {players.map((player, idx) => (
-                    <motion.div
-                      key={player.rank}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + idx * 0.05 }}
-                      className="grid grid-cols-12 gap-4 p-6 border-b border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors"
-                    >
-                      <div className="col-span-1">
-                        {player.rank === 1 && <div className="text-2xl">🥇</div>}
-                        {player.rank === 2 && <div className="text-2xl">🥈</div>}
-                        {player.rank === 3 && <div className="text-2xl">🥉</div>}
-                        {player.rank > 3 && (
-                          <span className="text-lg font-bold text-neutral-600 dark:text-neutral-400">
-                            #{player.rank}
-                          </span>
-                        )}
-                      </div>
+                  <div style={{ display: 'flex', gap: '24px', alignItems: 'center', textAlign: 'right' }}>
+                    <div>
+                      <p style={{ fontSize: '11px', opacity: 0.7, marginBottom: '2px' }}>Wins</p>
+                      <p style={{ fontSize: '16px', fontWeight: '600' }}>{player.wins}</p>
+                    </div>
+                    <div style={{ minWidth: '100px' }}>
+                      <p style={{ fontSize: '11px', opacity: 0.7, marginBottom: '2px' }}>Points</p>
+                      <p style={{ fontSize: '18px', fontWeight: 'bold', color: '#FFD700' }}>
+                        {player.points.toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-                      <div className="col-span-5 flex items-center gap-3">
-                        <span className="text-2xl">{player.avatar}</span>
-                        <span className="font-bold text-neutral-900 dark:text-white">
-                          {player.name}
-                        </span>
-                      </div>
-
-                      <div className="col-span-2">
-                        <span className="font-bold text-lg text-orange-500">
-                          {player.points.toLocaleString()}
-                        </span>
-                      </div>
-
-                      <div className="col-span-2">
-                        <Badge variant="secondary" size="sm">
-                          {player.wins}
-                        </Badge>
-                      </div>
-
-                      <div className="col-span-2 text-sm text-neutral-600 dark:text-neutral-400">
-                        {player.club ? player.club : '—'}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Mobile Version */}
-                <div className="md:hidden">
-                  {players.map((player, idx) => (
-                    <motion.div
-                      key={player.rank}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 + idx * 0.05 }}
-                      className="p-4 border-b border-neutral-200 dark:border-neutral-700 last:border-b-0"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          {player.rank === 1 && <span>🥇</span>}
-                          {player.rank === 2 && <span>🥈</span>}
-                          {player.rank === 3 && <span>🥉</span>}
-                          {player.rank > 3 && <span className="font-bold">#{player.rank}</span>}
-                          <span className="text-lg">{player.avatar}</span>
-                          <span className="font-bold">{player.name}</span>
-                        </div>
-                        <span className="font-bold text-orange-500">{player.points.toLocaleString()}</span>
-                      </div>
-                      <div className="flex gap-2 text-sm">
-                        <Badge variant="secondary" size="sm">{player.wins} Wins</Badge>
-                        {player.club && (
-                          <span className="text-neutral-600 dark:text-neutral-400">{player.club}</span>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </Card>
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              style={{
+                padding: '32px',
+                borderRadius: '16px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                background: 'rgba(245, 158, 11, 0.2)',
+                boxShadow: '0 8px 32px rgba(245, 158, 11, 0.2)',
+                color: 'white',
+                textAlign: 'center',
+                marginBottom: '16px',
+                maxWidth: '512px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
+            >
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>
+                Ready to climb the ranks?
+              </h2>
+              <p style={{ marginBottom: '16px', opacity: 0.8 }}>
+                Start playing and earn points to improve your position!
+              </p>
+              <Link href="/free-play-mode" legacyBehavior>
+                <a
+                  style={{
+                    display: 'inline-block',
+                    padding: '16px 40px',
+                    borderRadius: '12px',
+                    border: 'none',
+                    background: 'rgba(245, 158, 11, 0.5)',
+                    color: 'white',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    transition: 'all 0.3s',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = 'rgba(245, 158, 11, 0.7)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background = 'rgba(245, 158, 11, 0.5)';
+                  }}
+                >
+                  🎮 Play Now
+                </a>
+              </Link>
             </motion.div>
 
             {/* Back Button */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="mt-12"
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              style={{ textAlign: 'center' }}
             >
-              <Link href="/neuro-trivia">
-                <Button variant="outline" size="md">
+              <Link href="/neuro-trivia" legacyBehavior>
+                <a
+                  style={{
+                    display: 'inline-block',
+                    padding: '16px 40px',
+                    borderRadius: '16px',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    background: 'rgba(107, 114, 128, 0.3)',
+                    boxShadow: '0 8px 32px rgba(107, 114, 128, 0.3)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    transition: 'transform 0.3s',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                  }}
+                >
                   ← Back to Neuro Trivia
-                </Button>
+                </a>
               </Link>
             </motion.div>
           </div>
         </section>
-      </LayoutWrapper>
-      <Footer />
+
+        <div className="w-full min-h-screen"></div>
+        <div style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };

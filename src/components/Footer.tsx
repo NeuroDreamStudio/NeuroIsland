@@ -32,8 +32,10 @@ const Footer: React.FC = () => {
                   { name: 'Rewards', href: '/rewards' }
                 ].map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-white visited:text-white hover:text-yellow-400 transition duration-200 font-medium">
-                      {link.name}
+                    <Link href={link.href} legacyBehavior>
+                      <a className="text-white visited:text-white hover:text-yellow-400 transition duration-200 font-medium">
+                        {link.name}
+                      </a>
                     </Link>
                   </li>
                 ))}  

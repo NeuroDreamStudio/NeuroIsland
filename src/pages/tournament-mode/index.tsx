@@ -3,11 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import LayoutWrapper from '@/components/LayoutWrapper';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 
 interface Tournament {
   id: string;
@@ -15,46 +11,14 @@ interface Tournament {
   entryFee: number;
   prizePool: number;
   participants: number;
-  status: 'upcoming' | 'active' | 'ended';
+  status: 'active' | 'upcoming';
   startTime: string;
-  timePerQuestion: number;
-  totalQuestions: number;
 }
 
 const mockTournaments: Tournament[] = [
-  {
-    id: '1',
-    name: 'Crypto Masters Tournament',
-    entryFee: 0.5,
-    prizePool: 100,
-    participants: 42,
-    status: 'active',
-    startTime: 'Now - 2 hours left',
-    timePerQuestion: 30,
-    totalQuestions: 10,
-  },
-  {
-    id: '2',
-    name: 'General Knowledge Challenge',
-    entryFee: 0.1,
-    prizePool: 50,
-    participants: 128,
-    status: 'active',
-    startTime: 'Now - 4 hours left',
-    timePerQuestion: 30,
-    totalQuestions: 15,
-  },
-  {
-    id: '3',
-    name: 'Science & Tech Showdown',
-    entryFee: 1.0,
-    prizePool: 500,
-    participants: 18,
-    status: 'upcoming',
-    startTime: 'Starts in 2 hours',
-    timePerQuestion: 30,
-    totalQuestions: 20,
-  },
+  { id: '1', name: 'Crypto Masters', entryFee: 0.5, prizePool: 100, participants: 42, status: 'active', startTime: 'Now - 2h left' },
+  { id: '2', name: 'General Knowledge', entryFee: 0.1, prizePool: 50, participants: 128, status: 'active', startTime: 'Now - 4h left' },
+  { id: '3', name: 'Science & Tech Showdown', entryFee: 1.0, prizePool: 500, participants: 18, status: 'upcoming', startTime: 'Starts in 2h' },
 ];
 
 const TournamentMode = () => {
@@ -62,141 +26,115 @@ const TournamentMode = () => {
 
   return (
     <>
-      <LayoutWrapper showFooter={false}>
-        <section className="relative py-16 px-4 md:px-8">
-          <div className="max-w-6xl mx-auto">
-            {/* Header */}
+      <div 
+        className="min-h-screen w-full overflow-visible"
+        style={{
+          backgroundImage: 'url(/assets/images/base.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="fixed inset-0 -z-20 bg-black/30" />
+
+        <section className="relative pt-16 pb-32 px-4 md:px-16 lg:px-24 min-h-screen flex items-center justify-center overflow-x-hidden">
+          <div className="w-full max-w-6xl mx-auto">
             <motion.div
+              className="text-center mb-16"
               initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
+              transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                🏆 Tournament Mode
+              <h1 className="text-5xl md:text-7xl font-black mb-4">
+                🏆 <span style={{
+                  background: 'linear-gradient(135deg, #fef08a 0%, #fbbf24 50%, #fb923c 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>Tournaments</span>
               </h1>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400">
-                Compete against other players and earn real rewards
-              </p>
+              <p className="text-lg md:text-xl text-cyan-100">Compete and earn real rewards</p>
             </motion.div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <Card variant="elevated" className="p-6 text-center">
-                  <div className="text-4xl mb-2">🎮</div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                    Active Tournaments
-                  </p>
-                  <p className="text-3xl font-bold text-orange-500">{mockTournaments.filter(t => t.status === 'active').length}</p>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <Card variant="elevated" className="p-6 text-center">
-                  <div className="text-4xl mb-2">👥</div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                    Total Players
-                  </p>
-                  <p className="text-3xl font-bold text-pink-500">{mockTournaments.reduce((sum, t) => sum + t.participants, 0)}</p>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <Card variant="elevated" className="p-6 text-center">
-                  <div className="text-4xl mb-2">💰</div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                    Prize Pool
-                  </p>
-                  <p className="text-3xl font-bold text-emerald-500">{mockTournaments.reduce((sum, t) => sum + t.prizePool, 0)} SOL</p>
-                </Card>
-              </motion.div>
+            {/* Stats Grid */}
+            <div style={{ display: 'flex', justifyContent: 'space-around', gap: '20px', width: '100%', marginBottom: '3rem', flexWrap: 'wrap' }}>
+              {[
+                { label: 'Active', value: '2', emoji: '🎮' },
+                { label: 'Players', value: '188', emoji: '👥' },
+                { label: 'Prize Pool', value: '650 SOL', emoji: '💰' },
+              ].map((stat, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1, duration: 0.8 }}
+                >
+                  <div
+                    style={{
+                      padding: '16px 24px',
+                      borderRadius: '16px',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      background: 'rgba(59, 130, 246, 0.2)',
+                      boxShadow: '0 8px 32px rgba(59, 130, 246, 0.2)',
+                      color: 'white',
+                      textAlign: 'center',
+                      minWidth: '120px',
+                      flex: '1',
+                    }}
+                  >
+                    <div style={{ fontSize: '32px', marginBottom: '8px' }}>{stat.emoji}</div>
+                    <p style={{ fontSize: '12px', opacity: 0.8, marginBottom: '4px' }}>{stat.label}</p>
+                    <p style={{ fontSize: '28px', fontWeight: 'bold', color: '#fbbf24' }}>{stat.value}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
             {/* Tournaments List */}
-            <div className="mb-16">
-              <h2 className="text-2xl font-bold mb-8 text-neutral-900 dark:text-white">
+            <div className="mb-16 w-full">
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', marginBottom: '20px', textAlign: 'center' }}>
                 Available Tournaments
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div style={{ display: 'flex', gap: '16px', marginTop: '2.5rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
                 {mockTournaments.map((tournament, idx) => (
                   <motion.div
                     key={tournament.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
+                    initial={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1, duration: 0.8 }}
                   >
-                    <Card variant="elevated" hover className="p-6 h-full">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2">
-                            {tournament.name}
-                          </h3>
-                          <div className="flex gap-2">
-                            <Badge
-                              variant={
-                                tournament.status === 'active'
-                                  ? 'success'
-                                  : tournament.status === 'upcoming'
-                                  ? 'warning'
-                                  : 'secondary'
-                              }
-                              size="sm"
-                            >
-                              {tournament.status === 'active' && '🟢 Active'}
-                              {tournament.status === 'upcoming' && '🟡 Upcoming'}
-                              {tournament.status === 'ended' && '⚪ Ended'}
-                            </Badge>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Tournament Details */}
-                      <div className="space-y-3 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-700">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-neutral-600 dark:text-neutral-400">Entry Fee:</span>
-                          <span className="font-bold text-neutral-900 dark:text-white">{tournament.entryFee} SOL</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-neutral-600 dark:text-neutral-400">Prize Pool:</span>
-                          <span className="font-bold text-emerald-500">{tournament.prizePool} SOL</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-neutral-600 dark:text-neutral-400">Participants:</span>
-                          <span className="font-bold text-neutral-900 dark:text-white">{tournament.participants}</span>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-neutral-600 dark:text-neutral-400">Questions:</span>
-                          <span className="font-bold text-neutral-900 dark:text-white">{tournament.totalQuestions} (30s each)</span>
-                        </div>
-                      </div>
-
-                      {/* Info */}
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
-                        ⏰ {tournament.startTime}
-                      </p>
-
-                      {/* Actions */}
-                      <Button
-                        variant="primary"
-                        size="md"
-                        className="w-full"
-                        onClick={() => setSelectedTournament(tournament)}
-                      >
-                        {tournament.status === 'active' ? '⚡ Join Now' : 'ℹ️ Learn More'}
-                      </Button>
-                    </Card>
+                    <div
+                      style={{
+                        display: 'inline-block',
+                        width: 'fit-content',
+                        padding: '24px 64px',
+                        borderRadius: '16px',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        background: tournament.status === 'active' ? 'rgba(34, 197, 94, 0.3)' : 'rgba(245, 158, 11, 0.3)',
+                        boxShadow: tournament.status === 'active' ? '0 8px 32px rgba(34, 197, 94, 0.3)' : '0 8px 32px rgba(245, 158, 11, 0.3)',
+                        color: 'white',
+                        fontSize: '18px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        textDecoration: 'none',
+                        transition: 'transform 0.3s, box-shadow 0.3s',
+                        textAlign: 'center',
+                      }}
+                      onClick={() => setSelectedTournament(tournament)}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = tournament.status === 'active' ? '0 16px 48px rgba(34, 197, 94, 0.5)' : '0 16px 48px rgba(245, 158, 11, 0.5)';
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = tournament.status === 'active' ? '0 8px 32px rgba(34, 197, 94, 0.3)' : '0 8px 32px rgba(245, 158, 11, 0.3)';
+                      }}
+                    >
+                      🏆 {tournament.name}
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -204,14 +142,33 @@ const TournamentMode = () => {
 
             {/* Back Button */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              style={{ textAlign: 'center' }}
             >
-              <Link href="/neuro-trivia">
-                <Button variant="outline" size="md">
+              <Link href="/neuro-trivia" legacyBehavior>
+                <a
+                  style={{
+                    display: 'inline-block',
+                    padding: '16px 40px',
+                    borderRadius: '16px',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    background: 'rgba(107, 114, 128, 0.3)',
+                    boxShadow: '0 8px 32px rgba(107, 114, 128, 0.3)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    transition: 'transform 0.3s',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)'}
+                  onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.transform = 'scale(1)'}
+                >
                   ← Back to Neuro Trivia
-                </Button>
+                </a>
               </Link>
             </motion.div>
 
@@ -221,42 +178,77 @@ const TournamentMode = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={() => setSelectedTournament(null)}
-                className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+                style={{
+                  position: 'fixed',
+                  inset: 0,
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 50,
+                }}
               >
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
                   onClick={(e) => e.stopPropagation()}
-                  className="bg-white dark:bg-neutral-900 rounded-2xl p-8 max-w-md w-full"
+                  style={{
+                    background: 'rgba(17, 24, 39, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    borderRadius: '16px',
+                    padding: '32px',
+                    maxWidth: '400px',
+                    width: '90%',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                  }}
                 >
-                  <h2 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
+                  <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', marginBottom: '12px' }}>
                     {selectedTournament.name}
                   </h2>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                  <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '24px' }}>
                     Entry fee: {selectedTournament.entryFee} SOL
                   </p>
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full mb-3"
+                  <button
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: 'rgba(168, 85, 247, 0.5)',
+                      color: 'white',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      marginBottom: '12px',
+                    }}
                   >
                     💰 Connect Wallet & Join
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full"
+                  </button>
+                  <button
                     onClick={() => setSelectedTournament(null)}
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      background: 'transparent',
+                      color: 'white',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                    }}
                   >
                     Cancel
-                  </Button>
+                  </button>
                 </motion.div>
               </motion.div>
             )}
           </div>
         </section>
-      </LayoutWrapper>
-      <Footer />
+
+        <div className="w-full min-h-screen"></div>
+        <div style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };

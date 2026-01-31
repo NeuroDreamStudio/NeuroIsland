@@ -3,283 +3,222 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import LayoutWrapper from '@/components/LayoutWrapper';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 
 interface Challenge {
   id: string;
   opponent: string;
-  opponentAvatar: string;
   status: 'waiting' | 'in-progress' | 'completed';
   yourScore?: number;
   theirScore?: number;
-  timeLeft?: number;
 }
 
 const mockChallenges: Challenge[] = [
-  {
-    id: '1',
-    opponent: 'CryptoMaster99',
-    opponentAvatar: '👤',
-    status: 'in-progress',
-    yourScore: 7,
-    theirScore: 6,
-    timeLeft: 45,
-  },
-  {
-    id: '2',
-    opponent: 'TriviaKing42',
-    opponentAvatar: '👤',
-    status: 'waiting',
-  },
-  {
-    id: '3',
-    opponent: 'QuizGenius7',
-    opponentAvatar: '👤',
-    status: 'completed',
-    yourScore: 8,
-    theirScore: 5,
-  },
+  { id: '1', opponent: 'CryptoMaster99', status: 'in-progress', yourScore: 7, theirScore: 6 },
+  { id: '2', opponent: 'TriviaKing42', status: 'waiting' },
+  { id: '3', opponent: 'QuizGenius7', status: 'completed', yourScore: 8, theirScore: 5 },
 ];
 
 const ChallengeMode = () => {
-  const [challenges, setChallenges] = useState<Challenge[]>(mockChallenges);
   const [selectedChallenge, setSelectedChallenge] = useState<Challenge | null>(null);
-
-  useEffect(() => {
-    // Simulate timer for in-progress challenges
-    const timer = setInterval(() => {
-      setChallenges((prev) =>
-        prev.map((challenge) => ({
-          ...challenge,
-          timeLeft:
-            challenge.status === 'in-progress' && challenge.timeLeft
-              ? Math.max(0, challenge.timeLeft - 1)
-              : challenge.timeLeft,
-        }))
-      );
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const getStatusColor = (status: Challenge['status']) => {
-    switch (status) {
-      case 'waiting':
-        return 'from-yellow-500 to-orange-500';
-      case 'in-progress':
-        return 'from-blue-500 to-cyan-500';
-      case 'completed':
-        return 'from-green-500 to-emerald-500';
-      default:
-        return 'from-neutral-500 to-neutral-600';
-    }
-  };
 
   return (
     <>
-      <LayoutWrapper showFooter={false}>
-        <section className="relative py-16 px-4 md:px-8">
-          <div className="max-w-6xl mx-auto">
-            {/* Header */}
+      <div 
+        className="min-h-screen w-full overflow-visible"
+        style={{
+          backgroundImage: 'url(/assets/images/base.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="fixed inset-0 -z-20 bg-black/30" />
+
+        <section className="relative pt-16 pb-32 px-4 md:px-16 lg:px-24 min-h-screen flex items-center justify-center overflow-x-hidden">
+          <div className="w-full max-w-6xl mx-auto">
             <motion.div
+              className="text-center mb-16"
               initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
+              transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                ⚡ Challenge Mode
+              <h1 className="text-5xl md:text-7xl font-black mb-4">
+                ⚡ <span style={{
+                  background: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 50%, #fbbf24 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>Challenges</span>
               </h1>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400">
-                1v1 real-time battles - 15 seconds per question
-              </p>
+              <p className="text-lg md:text-xl text-cyan-100">1v1 real-time battles</p>
             </motion.div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <Card variant="elevated" className="p-6 text-center">
-                  <div className="text-4xl mb-2">🎮</div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                    Challenges
-                  </p>
-                  <p className="text-3xl font-bold text-blue-500">{challenges.length}</p>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <Card variant="elevated" className="p-6 text-center">
-                  <div className="text-4xl mb-2">🟢</div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                    In Progress
-                  </p>
-                  <p className="text-3xl font-bold text-emerald-500">
-                    {challenges.filter((c) => c.status === 'in-progress').length}
-                  </p>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <Card variant="elevated" className="p-6 text-center">
-                  <div className="text-4xl mb-2">🏆</div>
-                  <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
-                    Wins
-                  </p>
-                  <p className="text-3xl font-bold text-pink-500">
-                    {challenges.filter(
-                      (c) => c.status === 'completed' && c.yourScore! > c.theirScore!
-                    ).length}
-                  </p>
-                </Card>
-              </motion.div>
+            <div style={{ display: 'flex', justifyContent: 'space-around', gap: '20px', mb: '16px', width: '100%', marginBottom: '3rem', flexWrap: 'wrap' }}>
+              {[
+                { label: 'Challenges', value: '3', emoji: '🎮', color: 'rgba(59, 130, 246, 0.2)' },
+                { label: 'In Progress', value: '1', emoji: '🟢', color: 'rgba(34, 197, 94, 0.2)' },
+                { label: 'Wins', value: '1', emoji: '🏆', color: 'rgba(236, 72, 153, 0.2)' },
+              ].map((stat, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 1, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1, duration: 0.8 }}
+                >
+                  <div
+                    style={{
+                      padding: '16px 24px',
+                      borderRadius: '16px',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      background: stat.color,
+                      boxShadow: `0 8px 32px ${stat.color}`,
+                      color: 'white',
+                      textAlign: 'center',
+                      minWidth: '120px',
+                      flex: '1',
+                    }}
+                  >
+                    <div style={{ fontSize: '32px', marginBottom: '8px' }}>{stat.emoji}</div>
+                    <p style={{ fontSize: '12px', opacity: 0.8, marginBottom: '4px' }}>{stat.label}</p>
+                    <p style={{ fontSize: '28px', fontWeight: 'bold' }}>{stat.value}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
             {/* Challenges List */}
-            <div className="mb-16">
-              <h2 className="text-2xl font-bold mb-8 text-neutral-900 dark:text-white">
+            <div className="mb-16 w-full">
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', marginBottom: '20px', textAlign: 'center' }}>
                 Your Challenges
               </h2>
-              <div className="space-y-4">
-                {challenges.map((challenge, idx) => (
+              <div style={{ display: 'flex', gap: '16px', marginTop: '2.5rem', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
+                {mockChallenges.map((challenge, idx) => (
                   <motion.div
                     key={challenge.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
+                    initial={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1, duration: 0.8 }}
                   >
-                    <Card variant="elevated" hover className="p-6 cursor-pointer">
-                      <div className="flex items-center justify-between">
-                        {/* Opponent Info */}
-                        <div className="flex items-center gap-4 flex-1">
-                          <div className="text-5xl">{challenge.opponentAvatar}</div>
-                          <div className="flex-1">
-                            <h3 className="text-lg font-bold text-neutral-900 dark:text-white">
-                              {challenge.opponent}
-                            </h3>
-                            <Badge
-                              variant={
-                                challenge.status === 'waiting'
-                                  ? 'warning'
-                                  : challenge.status === 'in-progress'
-                                  ? 'success'
-                                  : 'secondary'
-                              }
-                              size="sm"
-                            >
-                              {challenge.status === 'waiting' && '🟡 Waiting for response'}
-                              {challenge.status === 'in-progress' && '🟢 In Progress'}
-                              {challenge.status === 'completed' && '⚪ Completed'}
-                            </Badge>
-                          </div>
-                        </div>
-
-                        {/* Score & Actions */}
-                        <div className="text-right">
-                          {challenge.status === 'in-progress' && (
-                            <div className="mb-2">
-                              <div className="flex items-center gap-2 justify-end">
-                                <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                                  You: <span className="font-bold">{challenge.yourScore}</span>
-                                </div>
-                                <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                                  {challenge.opponent.substring(0, 8)}: <span className="font-bold">{challenge.theirScore}</span>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {challenge.status === 'completed' && (
-                            <div className="mb-2">
-                              <div className={`text-lg font-bold ${
-                                challenge.yourScore! > challenge.theirScore!
-                                  ? 'text-emerald-500'
-                                  : challenge.yourScore! < challenge.theirScore!
-                                  ? 'text-red-500'
-                                  : 'text-yellow-500'
-                              }`}>
-                                {challenge.yourScore! > challenge.theirScore!
-                                  ? '✅ Win'
-                                  : challenge.yourScore! < challenge.theirScore!
-                                  ? '❌ Loss'
-                                  : '🤝 Draw'}
-                              </div>
-                            </div>
-                          )}
-
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            onClick={() => setSelectedChallenge(challenge)}
-                          >
-                            {challenge.status === 'waiting' && 'Accept'}
-                            {challenge.status === 'in-progress' && 'Continue'}
-                            {challenge.status === 'completed' && 'View'}
-                          </Button>
-                        </div>
-                      </div>
-
-                      {/* Timer */}
-                      {challenge.status === 'in-progress' && challenge.timeLeft !== undefined && (
-                        <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-neutral-600 dark:text-neutral-400">Time remaining:</span>
-                            <span className={`font-bold ${challenge.timeLeft < 30 ? 'text-red-500' : 'text-neutral-900 dark:text-white'}`}>
-                              ⏱️ {Math.floor(challenge.timeLeft / 60)}:{String(challenge.timeLeft % 60).padStart(2, '0')}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </Card>
+                    <div
+                      style={{
+                        display: 'inline-block',
+                        width: 'fit-content',
+                        padding: '24px 64px',
+                        borderRadius: '16px',
+                        backdropFilter: 'blur(10px)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        background: challenge.status === 'in-progress' ? 'rgba(34, 197, 94, 0.3)' : challenge.status === 'completed' ? 'rgba(59, 130, 246, 0.3)' : 'rgba(245, 158, 11, 0.3)',
+                        boxShadow: challenge.status === 'in-progress' ? '0 8px 32px rgba(34, 197, 94, 0.3)' : challenge.status === 'completed' ? '0 8px 32px rgba(59, 130, 246, 0.3)' : '0 8px 32px rgba(245, 158, 11, 0.3)',
+                        color: 'white',
+                        fontSize: '18px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        textDecoration: 'none',
+                        transition: 'transform 0.3s, box-shadow 0.3s',
+                        textAlign: 'center',
+                      }}
+                      onClick={() => setSelectedChallenge(challenge)}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = challenge.status === 'in-progress' ? '0 16px 48px rgba(34, 197, 94, 0.5)' : challenge.status === 'completed' ? '0 16px 48px rgba(59, 130, 246, 0.5)' : '0 16px 48px rgba(245, 158, 11, 0.5)';
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                        (e.currentTarget as HTMLElement).style.boxShadow = challenge.status === 'in-progress' ? '0 8px 32px rgba(34, 197, 94, 0.3)' : challenge.status === 'completed' ? '0 8px 32px rgba(59, 130, 246, 0.3)' : '0 8px 32px rgba(245, 158, 11, 0.3)';
+                      }}
+                    >
+                      👤 {challenge.opponent}
+                    </div>
                   </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* New Challenge Section */}
+            {/* CTA */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="mb-16"
+              transition={{ delay: 0.5, duration: 0.8 }}
+              style={{
+                padding: '32px',
+                borderRadius: '16px',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.2)',
+                background: 'rgba(99, 102, 241, 0.2)',
+                boxShadow: '0 8px 32px rgba(99, 102, 241, 0.2)',
+                color: 'white',
+                textAlign: 'center',
+                marginBottom: '16px',
+                maxWidth: '512px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }}
             >
-              <Card variant="elevated" className="p-8 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-0">
-                <h2 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
-                  Challenge a Friend
-                </h2>
-                <p className="text-neutral-600 dark:text-neutral-400 mb-6">
-                  Invite a friend to a 1v1 battle and see who\'s the better trivia master!
-                </p>
-                <Button variant="primary" size="lg">
-                  🔗 Create Challenge
-                </Button>
-              </Card>
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>
+                Challenge a Friend
+              </h2>
+              <p style={{ marginBottom: '16px', opacity: 0.8 }}>
+                Invite someone to a 1v1 battle!
+              </p>
+              <button
+                style={{
+                  padding: '16px 40px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  background: 'rgba(34, 197, 94, 0.5)',
+                  color: 'white',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(34, 197, 94, 0.7)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(34, 197, 94, 0.5)';
+                }}
+              >
+                🔗 Create Challenge
+              </button>
             </motion.div>
 
             {/* Back Button */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              style={{ textAlign: 'center' }}
             >
-              <Link href="/neuro-trivia">
-                <Button variant="outline" size="md">
+              <Link href="/neuro-trivia" legacyBehavior>
+                <a
+                  style={{
+                    display: 'inline-block',
+                    padding: '16px 40px',
+                    borderRadius: '16px',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    background: 'rgba(107, 114, 128, 0.3)',
+                    boxShadow: '0 8px 32px rgba(107, 114, 128, 0.3)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    transition: 'transform 0.3s',
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                  }}
+                >
                   ← Back to Neuro Trivia
-                </Button>
+                </a>
               </Link>
             </motion.div>
 
@@ -289,42 +228,77 @@ const ChallengeMode = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={() => setSelectedChallenge(null)}
-                className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+                style={{
+                  position: 'fixed',
+                  inset: 0,
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 50,
+                }}
               >
                 <motion.div
                   initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
                   onClick={(e) => e.stopPropagation()}
-                  className="bg-white dark:bg-neutral-900 rounded-2xl p-8 max-w-md w-full"
+                  style={{
+                    background: 'rgba(17, 24, 39, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    borderRadius: '16px',
+                    padding: '32px',
+                    maxWidth: '400px',
+                    width: '90%',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                  }}
                 >
-                  <h2 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
+                  <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'white', marginBottom: '12px' }}>
                     Challenge with {selectedChallenge.opponent}
                   </h2>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                  <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '24px' }}>
                     Status: {selectedChallenge.status}
                   </p>
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full mb-3"
+                  <button
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      borderRadius: '12px',
+                      border: 'none',
+                      background: 'rgba(168, 85, 247, 0.5)',
+                      color: 'white',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      marginBottom: '12px',
+                    }}
                   >
                     ⚡ Continue Challenge
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full"
+                  </button>
+                  <button
                     onClick={() => setSelectedChallenge(null)}
+                    style={{
+                      width: '100%',
+                      padding: '16px',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      background: 'transparent',
+                      color: 'white',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                    }}
                   >
                     Cancel
-                  </Button>
+                  </button>
                 </motion.div>
               </motion.div>
             )}
           </div>
         </section>
-      </LayoutWrapper>
-      <Footer />
+
+        <div className="w-full min-h-screen"></div>
+        <div style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };

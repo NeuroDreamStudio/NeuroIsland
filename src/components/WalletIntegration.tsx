@@ -85,15 +85,17 @@ export const WalletIntegration: React.FC = () => {
       {/* Header */}
       <header className="relative z-50 backdrop-blur-md bg-black/30 border-b border-yellow-500/30 sticky top-0">
         <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
-          <Link href="/">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent cursor-pointer hover:opacity-80">
-              💎 Wallet Hub
-            </h1>
+          <Link href="/" legacyBehavior>
+            <a>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent cursor-pointer hover:opacity-80">
+                💎 Wallet Hub
+              </h1>
+            </a>
           </Link>
-          <Link href="/">
-            <button className="px-6 py-2 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:shadow-lg hover:shadow-yellow-500/50 transition cursor-pointer text-white font-semibold">
+          <Link href="/" legacyBehavior>
+            <a className="px-6 py-2 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:shadow-lg hover:shadow-yellow-500/50 transition cursor-pointer text-white font-semibold">
               ← Back Home
-            </button>
+            </a>
           </Link>
         </div>
       </header>

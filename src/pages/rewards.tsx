@@ -101,25 +101,29 @@ const RewardsPage: React.FC = () => {
       <nav className="relative z-50 backdrop-blur-md bg-gradient-to-r from-blue-900/80 via-teal-900/80 to-cyan-900/80 border-b border-cyan-400/30 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <Link href="/">
-              <motion.div 
-                className="flex items-center space-x-3 cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-              >
+            <Link href="/" legacyBehavior>
+              <a>
                 <motion.div 
-                  className="text-4xl"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  className="flex items-center space-x-3 cursor-pointer"
+                  whileHover={{ scale: 1.05 }}
                 >
-                  🏝️
+                  <motion.div 
+                    className="text-4xl"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  >
+                    🏝️
+                  </motion.div>
+                  <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-300 to-emerald-400 bg-clip-text text-transparent">
+                    NeuroIsland
+                  </h1>
                 </motion.div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-300 to-emerald-400 bg-clip-text text-transparent">
-                  NeuroIsland
-                </h1>
-              </motion.div>
+              </a>
             </Link>
-            <Link href="/" className="text-cyan-300 hover:text-yellow-400 transition font-medium">
-              ← Back Home
+            <Link href="/" legacyBehavior>
+              <a className="text-cyan-300 hover:text-yellow-400 transition font-medium">
+                ← Back Home
+              </a>
             </Link>
           </div>
         </div>

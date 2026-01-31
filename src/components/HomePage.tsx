@@ -10,17 +10,13 @@ const HomePage: React.FC = () => {
       <div 
         className="min-h-screen w-full overflow-visible"
         style={{
-          backgroundImage: 'url(/assets/images/base.png)',
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), url(/assets/images/base.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
           backgroundRepeat: 'no-repeat',
         }}
       >
-        {/* Dark overlay for better text readability */}
-        <div className="fixed inset-0 -z-20 bg-black/30" />
-
-
 
         {/* Hero Section with Left Title & Right Content */}
         <section className="relative pt-16 pb-32 px-16 md:px-24 lg:px-32 min-h-[calc(100vh-80px)] flex items-center justify-center overflow-x-hidden">
